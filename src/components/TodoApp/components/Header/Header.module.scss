@@ -1,0 +1,36 @@
+.wrapper {
+  position: relative;
+  height: 65.6px;
+  input:placeholder-shown {
+    font-style: italic;
+  }
+  ::placeholder {
+    color: #e6e6e6;
+  }
+
+  :-ms-input-placeholder {
+    color: #e6e6e6;
+  }
+
+  ::-ms-input-placeholder {
+    color: #e6e6e6;
+  }
+  .complete-all-todo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #e6e6e6;
+  }
+  .search {
+    padding: 16px 16px 16px 60px;
+    font-size: 2.4rem;
+    background: rgba(0, 0, 0, 0.003);
+    box-shadow: inset 0 -2px 1px rgb(0 0 0 / 3%);
+    width: 100%;
+    height: 100%;
+  }
+}

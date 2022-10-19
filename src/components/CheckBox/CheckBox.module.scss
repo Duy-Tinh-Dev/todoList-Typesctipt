@@ -1,0 +1,55 @@
+/* The wrapper */
+.wrapper {
+  cursor: pointer;
+  user-select: none;
+  /* Hide the browser's default checkbox */
+  input {
+    display: none;
+  }
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+  }
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    left: 11px;
+    top: 4px;
+    width: 10px;
+    height: 13px;
+    border: solid #e6e6e6;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+  /* Show the checkmark when checked */
+  input:checked ~ .checkmark:after {
+    display: block;
+    border: solid #737373;
+    border-width: 0 3px 3px 0;
+  }
+  &.outline {
+    .checkmark {
+      border: 1px solid rgba(204, 204, 204, 0.5);
+    }
+    input:checked ~ .checkmark {
+      border: 1px solid rgb(190, 190, 190);
+    }
+    .checkmark:after {
+      display: none;
+    }
+    input:checked ~ .checkmark:after {
+      width: 5px;
+      height: 15px;
+      border: solid #5dc2af;
+      border-width: 0 2px 2px 0;
+      transform: rotate(35deg);
+    }
+  }
+}

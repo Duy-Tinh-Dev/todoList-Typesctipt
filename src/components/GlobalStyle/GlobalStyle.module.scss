@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+:root {
+  --text: #4d4d4d;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: "Helvetica Neue", sans-serif;
+}
+button,
+input {
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
