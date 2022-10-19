@@ -19,7 +19,7 @@ function CheckBox({
     setCheckbox(checked);
   }, [checked]);
   const handleCheckbox = (event: ChangeEvent<HTMLInputElement>): void => {
-    const isCheck = event.target.checked;
+    const isCheck: boolean = event.target.checked;
     toggleSelect(isCheck);
     setCheckbox(isCheck);
   };

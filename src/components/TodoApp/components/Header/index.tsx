@@ -1,10 +1,7 @@
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
-import { ITodo } from "../../../Interface";
 import style from "./Header.module.scss";
 import CheckBox from "../../../CheckBox";
-import { FC, ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 const cx = classNames.bind(style);
 interface Props {
   selectAll: boolean;
@@ -22,7 +19,7 @@ function Header({ addTask, toggleSelect, selectAll }: Props) {
     }
   };
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    let contentTodo = event.target.value;
+    let contentTodo: string = event.target.value;
     setValueInput(contentTodo);
   };
   return (

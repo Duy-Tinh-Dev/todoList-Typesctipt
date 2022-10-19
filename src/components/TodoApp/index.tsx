@@ -2,13 +2,13 @@ import classNames from "classnames/bind";
 import style from "./TodoApp.module.scss";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import TodoList from "../TodoList";
 import { useState, useEffect } from "react";
 import { ITodo } from "../Interface";
+import TodoItem from "../TodoItem";
 const cx = classNames.bind(style);
 function TodoApp() {
   const [todoList, setTodoList] = useState<Array<ITodo>>([]);
-  const [tempTodoList, setTempTodoList] = useState<Array<ITodo> | []>([]);
+  const [tempTodoList, setTempTodoList] = useState<Array<ITodo>>([]);
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [activeTodoCount, setActiveTodoCount] = useState<number>(0);
   useEffect(() => {
@@ -19,10 +19,14 @@ function TodoApp() {
     }
   }, []);
   useEffect(() => {
-    let checked = todoList.every((item) => item.complete === true);
-    const countTodo = todoList.reduce(function (count: number, todo: ITodo) {
+    let checked: boolean = todoList.every((item) => item.complete === true);
+    const countTodo: number = todoList.reduce(function (
+      count: number,
+      todo: ITodo
+    ) {
       return todo.complete ? count : count + 1;
-    }, 0);
+    },
+    0);
     setActiveTodoCount(countTodo);
     setSelectAll(checked);
     setTempTodoList(todoList);
@@ -34,12 +38,16 @@ function TodoApp() {
   const switchTab = (tab: string) => {
     switch (tab) {
       case "Active": {
-        let tempTodoList = todoList.filter((item) => item.complete === false);
+        let tempTodoList: Array<ITodo> = todoList.filter(
+          (item) => item.complete === false
+        );
         setTempTodoList(tempTodoList);
         break;
       }
       case "Completed": {
-        let tempTodoList = todoList.filter((item) => item.complete === true);
+        let tempTodoList: Array<ITodo> = todoList.filter(
+          (item) => item.complete === true
+        );
         setTempTodoList(tempTodoList);
         break;
       }
@@ -48,20 +56,20 @@ function TodoApp() {
     }
   };
   const addTask = (task: string): void => {
-    const todo = {
+    const todo: ITodo = {
       id: Math.floor(Math.random() * 100 + 1),
       task: task,
       complete: false,
     };
     setTodoList((pre) => {
-      const newTodoList = [...pre, todo];
+      const newTodoList: Array<ITodo> = [...pre, todo];
       localStorage.setItem("todoList", JSON.stringify(newTodoList));
       return newTodoList;
     });
   };
   const toggleSelect = (isSelectAll: boolean): void => {
     if (isSelectAll) {
-      let tempTodoList = todoList.map((item, index) => {
+      let tempTodoList: Array<ITodo> = todoList.map((item, index) => {
         return {
           id: item.id,
           task: item.task,
@@ -71,7 +79,7 @@ function TodoApp() {
       setTodoList(tempTodoList);
       localStorage.setItem("todoList", JSON.stringify(tempTodoList));
     } else {
-      let tempTodoList = todoList.map((item, index) => {
+      let tempTodoList: Array<ITodo> = todoList.map((item, index) => {
         return {
           id: item.id,
           task: item.task,
@@ -83,7 +91,7 @@ function TodoApp() {
     }
   };
   const editTodo = (id: number, task: string) => {
-    const tempTodoList = todoList.map((item) => {
+    const tempTodoList: Array<ITodo> = todoList.map((item) => {
       if (item.id === id) {
         item.task = task;
       }
@@ -93,7 +101,7 @@ function TodoApp() {
     localStorage.setItem("todoList", JSON.stringify(tempTodoList));
   };
   const completeTodo = (id: number, complete: boolean) => {
-    const tempTodoList = todoList.map((item) => {
+    const tempTodoList: Array<ITodo> = todoList.map((item) => {
       if (item.id === id) {
         item.complete = complete;
       }
@@ -103,7 +111,9 @@ function TodoApp() {
     localStorage.setItem("todoList", JSON.stringify(tempTodoList));
   };
   const deleteTodo = (id: number) => {
-    const tempTodoList = todoList.filter((item) => item.id !== id);
+    const tempTodoList: Array<ITodo> = todoList.filter(
+      (item) => item.id !== id
+    );
     setTodoList(tempTodoList);
     localStorage.setItem("todoList", JSON.stringify(tempTodoList));
   };
@@ -114,12 +124,17 @@ function TodoApp() {
         toggleSelect={toggleSelect}
         selectAll={selectAll}
       />
-      <TodoList
-        data={tempTodoList}
-        completeTodo={completeTodo}
-        deleteTodo={deleteTodo}
-        editTodo={editTodo}
-      />
+      <div>
+        {tempTodoList.map((item, index) => (
+          <TodoItem
+            key={index}
+            todo={item}
+            completeTodo={completeTodo}
+            deleteTodo={deleteTodo}
+            editTodo={editTodo}
+          />
+        ))}
+      </div>
       <Footer
         switchTab={switchTab}
         clearAllTodo={clearAllTodo}

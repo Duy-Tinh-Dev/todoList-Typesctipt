@@ -18,7 +18,7 @@ function Tabs({ arrTabs, switchTab }: Props) {
         <button
           key={index}
           className={cx("btn-tab", { active: type === tab.name })}
-          onClick={(e) => {
+          onClick={() => {
             setType(tab.name);
           }}
         >

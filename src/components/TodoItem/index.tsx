@@ -14,9 +14,7 @@ interface props {
 }
 function TodoItem({ todo, completeTodo, deleteTodo, editTodo }: props) {
   const [editing, setEditing] = useState<boolean>(false);
-  const [task, setTask] = useState<string>(todo.task);
   const inputRef = useRef<HTMLInputElement>(null);
-  const complete = todo.complete;
   useEffect(() => {
     if (editing) {
       if (inputRef.current) {
@@ -24,11 +22,12 @@ function TodoItem({ todo, completeTodo, deleteTodo, editTodo }: props) {
       }
     }
   }, [editing]);
+  const complete: boolean = todo.complete;
   const classnames = cx("wrapper", {
     editing,
     complete,
   });
-  const toggleSelect = (isCheck: boolean) => {
+  const toggleSelect = (isCheck: boolean): void => {
     completeTodo(todo.id, isCheck);
   };
   const handleSubmit = (): void => {
@@ -48,7 +47,7 @@ function TodoItem({ todo, completeTodo, deleteTodo, editTodo }: props) {
       setEditing(false);
     }
   };
-  const handleToggleEdit = () => {
+  const handleToggleEdit = (): void => {
     setEditing(!editing);
   };
   return (
@@ -66,10 +65,9 @@ function TodoItem({ todo, completeTodo, deleteTodo, editTodo }: props) {
         </button>
       </div>
       <input
-        defaultValue={task}
+        defaultValue={todo.task}
         ref={inputRef}
         type="text"
-        autoFocus
         className={cx("edit-todo")}
         onBlur={handleSubmit}
         onKeyDown={enterPress}
