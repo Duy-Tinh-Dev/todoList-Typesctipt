@@ -1,10 +1,12 @@
+import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import style from "./TodoApp.module.scss";
+
+import ITodo from "../../model/Todo";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { useState, useEffect } from "react";
-import { ITodo } from "../Interface";
 import TodoItem from "../TodoItem";
+
+import style from "./index.module.scss";
 const cx = classNames.bind(style);
 function TodoApp() {
   const [todoList, setTodoList] = useState<Array<ITodo>>([]);
@@ -118,29 +120,32 @@ function TodoApp() {
     localStorage.setItem("todoList", JSON.stringify(tempTodoList));
   };
   return (
-    <div className={cx("wrapper")}>
-      <Header
-        addTask={addTask}
-        toggleSelect={toggleSelect}
-        selectAll={selectAll}
-      />
-      <div>
-        {tempTodoList.map((item, index) => (
-          <TodoItem
-            key={index}
-            todo={item}
-            completeTodo={completeTodo}
-            deleteTodo={deleteTodo}
-            editTodo={editTodo}
-          />
-        ))}
+    <>
+      <h1 className={cx("heading")}>todos</h1>;
+      <div className={cx("wrapper")}>
+        <Header
+          addTask={addTask}
+          toggleSelect={toggleSelect}
+          selectAll={selectAll}
+        />
+        <div>
+          {tempTodoList.map((item, index) => (
+            <TodoItem
+              key={index}
+              todo={item}
+              completeTodo={completeTodo}
+              deleteTodo={deleteTodo}
+              editTodo={editTodo}
+            />
+          ))}
+        </div>
+        <Footer
+          switchTab={switchTab}
+          clearAllTodo={clearAllTodo}
+          activeTodoCount={activeTodoCount}
+        />
       </div>
-      <Footer
-        switchTab={switchTab}
-        clearAllTodo={clearAllTodo}
-        activeTodoCount={activeTodoCount}
-      />
-    </div>
+    </>
   );
 }
 export default TodoApp;

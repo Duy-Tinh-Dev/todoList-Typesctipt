@@ -1,13 +1,15 @@
-import classNames from "classnames/bind";
-import style from "./Header.module.scss";
-import CheckBox from "../../../CheckBox";
 import { ChangeEvent, FormEvent, useState } from "react";
+import classNames from "classnames/bind";
+
+import CheckBox from "../../../CheckBox";
+
+import style from "./index.module.scss";
 const cx = classNames.bind(style);
-interface Props {
+type Props = {
   selectAll: boolean;
   addTask(task: string): void;
   toggleSelect(isSelectAll: boolean): void;
-}
+};
 function Header({ addTask, toggleSelect, selectAll }: Props) {
   const [valueInput, setValueInput] = useState<string>("");
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {

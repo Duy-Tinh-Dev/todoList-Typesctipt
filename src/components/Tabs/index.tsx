@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import style from "./Tabs.module.scss";
-import { ITab } from "./ITab";
+import style from "./index.module.scss";
 const cx = classNames.bind(style);
-interface Props {
-  arrTabs: Array<ITab>;
+type Props = {
+  arrTabs: Array<string>;
   switchTab(tab: string): void;
-}
+};
 function Tabs({ arrTabs, switchTab }: Props) {
   const [type, setType] = useState("All");
   useEffect(() => {
@@ -17,12 +16,12 @@ function Tabs({ arrTabs, switchTab }: Props) {
       {arrTabs.map((tab, index) => (
         <button
           key={index}
-          className={cx("btn-tab", { active: type === tab.name })}
+          className={cx("btn-tab", { active: type === tab })}
           onClick={() => {
-            setType(tab.name);
+            setType(tab);
           }}
         >
-          {tab.name}
+          {tab}
         </button>
       ))}
     </div>

@@ -1,29 +1,14 @@
-import style from "./Footer.module.scss";
 import classNames from "classnames/bind";
 import Tabs from "../../../Tabs";
+
+import style from "./index.module.scss";
 const cx = classNames.bind(style);
-interface Props {
+type Props = {
   switchTab(tab: string): void;
   clearAllTodo(): void;
   activeTodoCount: number;
-}
-const tabs = [
-  {
-    id: 1,
-    name: "All",
-    active: true,
-  },
-  {
-    id: 2,
-    name: "Active",
-    active: false,
-  },
-  {
-    id: 3,
-    name: "Completed",
-    active: false,
-  },
-];
+};
+const tabs = ["All", "Active", "Completed"];
 function Footer({ switchTab, clearAllTodo, activeTodoCount }: Props) {
   return (
     <footer className={cx("wrapper")}>

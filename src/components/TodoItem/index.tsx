@@ -1,18 +1,20 @@
-import { ITodo } from "../Interface";
+import { useRef, useState, KeyboardEvent, useEffect } from "react";
 import classNames from "classnames/bind";
-import style from "./TodoItem.module.scss";
+
+import ITodo from "../../model/Todo";
 import CheckBox from "../CheckBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useRef, useState, KeyboardEvent, useEffect } from "react";
+
+import style from "./index.module.scss";
 const cx = classNames.bind(style);
-interface props {
+type Props = {
   todo: ITodo;
   completeTodo(id: number, complete: boolean): void;
   deleteTodo(id: number): void;
   editTodo(id: number, task: string): void;
-}
-function TodoItem({ todo, completeTodo, deleteTodo, editTodo }: props) {
+};
+function TodoItem({ todo, completeTodo, deleteTodo, editTodo }: Props) {
   const [editing, setEditing] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -51,7 +53,7 @@ function TodoItem({ todo, completeTodo, deleteTodo, editTodo }: props) {
     setEditing(!editing);
   };
   return (
-    <div className={classnames} id={`${todo.id}`}>
+    <div className={classnames}>
       <div className={cx("todo-item")}>
         <CheckBox outline toggleSelect={toggleSelect} checked={complete} />
         <p className={cx("content")} onDoubleClick={handleToggleEdit}>

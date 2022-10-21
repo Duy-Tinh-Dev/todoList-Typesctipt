@@ -1,18 +1,18 @@
 import classNames from "classnames/bind";
 import { ChangeEvent, useState, useEffect } from "react";
-import style from "./CheckBox.module.scss";
+import style from "./index.module.scss";
 const cx = classNames.bind(style);
-interface props {
+type props = {
   outline?: boolean;
   className?: string;
   checked?: boolean;
-  toggleSelect?(isSelectAll: boolean): void;
-}
+  toggleSelect(isSelectAll: boolean): void;
+};
 function CheckBox({
   className = "",
   outline,
   checked = false,
-  toggleSelect = () => {},
+  toggleSelect,
 }: props) {
   const [checkbox, setCheckbox] = useState<boolean>(checked);
   useEffect(() => {
