@@ -1,6 +1,8 @@
-import classNames from "classnames/bind";
 import { ChangeEvent, useState, useEffect } from "react";
+import classNames from "classnames/bind";
+
 import style from "./index.module.scss";
+
 const cx = classNames.bind(style);
 type props = {
   outline?: boolean;
@@ -18,15 +20,18 @@ function CheckBox({
   useEffect(() => {
     setCheckbox(checked);
   }, [checked]);
+
+  const classnames = cx("wrapper", {
+    [className]: className,
+    outline,
+  });
+
   const handleCheckbox = (event: ChangeEvent<HTMLInputElement>): void => {
     const isCheck: boolean = event.target.checked;
     toggleSelect(isCheck);
     setCheckbox(isCheck);
   };
-  const classnames = cx("wrapper", {
-    [className]: className,
-    outline,
-  });
+
   return (
     <label className={classnames}>
       <input type="checkbox" onChange={handleCheckbox} checked={checkbox} />
@@ -34,5 +39,4 @@ function CheckBox({
     </label>
   );
 }
-
 export default CheckBox;

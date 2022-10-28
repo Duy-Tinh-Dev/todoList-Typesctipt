@@ -1,37 +1,48 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 import classNames from "classnames/bind";
 
+import { addTodo } from "../../../../redux/slices/todoSlice";
 import CheckBox from "../../../CheckBox";
-
+import { toggleCompleteTodoAll } from "../../../../redux/slices/todoSlice";
 import style from "./index.module.scss";
+import ITodo from "../../../../model/Todo";
+
 const cx = classNames.bind(style);
-type Props = {
-  selectAll: boolean;
-  addTask(task: string): void;
-  toggleSelect(isSelectAll: boolean): void;
-};
-function Header({ addTask, toggleSelect, selectAll }: Props) {
+function Header() {
   const [valueInput, setValueInput] = useState<string>("");
+  const dispatch = useDispatch();
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    const trimValueInput = valueInput.trim();
-    if (trimValueInput) {
-      addTask(trimValueInput);
-      setValueInput("");
-    }
+    const contentTask = valueInput.trim();
+    const newTodo: ITodo = {
+      id: uuidv4(),
+      task: contentTask,
+      complete: false,
+    };
+    dispatch(addTodo(newTodo));
+    setValueInput("");
   };
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    let contentTodo: string = event.target.value;
-    setValueInput(contentTodo);
+
+  const handleChangeValue = (event: ChangeEvent<HTMLInputElement>): void => {
+    const valueInput: string = event.target.value;
+    setValueInput(valueInput);
   };
+
+  const toggleSelect = (isCheck: boolean): void => {
+    dispatch(toggleCompleteTodoAll(isCheck));
+  };
+
   return (
     <form className={cx("wrapper")} onSubmit={handleSubmit}>
-      <CheckBox toggleSelect={toggleSelect} checked={selectAll} />
+      <CheckBox toggleSelect={toggleSelect} />
       <input
         type="text"
         className={cx("search")}
         placeholder="What needs to be done?"
-        onChange={handleChange}
+        onChange={handleChangeValue}
         value={valueInput}
       />
     </form>

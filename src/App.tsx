@@ -1,6 +1,6 @@
+import classNames from "classnames/bind";
 import Footer from "./components/Footer";
 import TodoApp from "./components/TodoApp";
-import classNames from "classnames/bind";
 import style from "./index.module.scss";
 const cx = classNames.bind(style);
 function App() {

@@ -1,24 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import classNames from "classnames/bind";
+
+import { changeStatus } from "../../redux/slices/filterSlice";
 import style from "./index.module.scss";
+
 const cx = classNames.bind(style);
 type Props = {
   arrTabs: Array<string>;
-  switchTab(tab: string): void;
 };
-function Tabs({ arrTabs, switchTab }: Props) {
-  const [type, setType] = useState("All");
-  useEffect(() => {
-    switchTab(type);
-  }, [type]);
+function Tabs({ arrTabs }: Props) {
+  const [type, setType] = useState<string>("All");
+  const dispatch = useDispatch();
+
+  const handleSwitchTab = (tab: string): void => {
+    dispatch(changeStatus(tab));
+    setType(tab);
+  };
+
   return (
     <div className={cx("wrapper")}>
       {arrTabs.map((tab, index) => (
         <button
           key={index}
           className={cx("btn-tab", { active: type === tab })}
+          name={tab}
           onClick={() => {
-            setType(tab);
+            handleSwitchTab(tab);
           }}
         >
           {tab}
@@ -27,5 +35,4 @@ function Tabs({ arrTabs, switchTab }: Props) {
     </div>
   );
 }
-
 export default Tabs;
