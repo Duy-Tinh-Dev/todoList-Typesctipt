@@ -6,17 +6,17 @@ type SliceState = Array<ITodo>;
 const initialState: SliceState = [
   {
     id: "1",
-    task: "Learn Redux",
+    nameTask: "Learn Redux",
     complete: false,
   },
   {
     id: "2",
-    task: "Learn Java",
+    nameTask: "Learn Java",
     complete: false,
   },
   {
     id: "3",
-    task: "Learn Html",
+    nameTask: "Learn Html",
     complete: true,
   },
 ];
@@ -33,11 +33,10 @@ const todoSlice = createSlice({
       state,
       action: PayloadAction<{ id: string; valueEditTask: string }>
     ) => {
-      state.map((todo) => {
-        return todo.id === action.payload.id
-          ? (todo.task = action.payload.valueEditTask)
-          : todo;
-      });
+      const indexEditTodo = state.findIndex(
+        (todo) => todo.id === action.payload.id
+      );
+      state[indexEditTodo].nameTask = action.payload.valueEditTask;
     },
 
     removeTodo: (state, action: PayloadAction<string>) => {
@@ -57,7 +56,7 @@ const todoSlice = createSlice({
     },
 
     clearAllTodo: (state) => {
-      return (state = []);
+      return state.filter((todo) => todo.complete === false);
     },
   },
 });

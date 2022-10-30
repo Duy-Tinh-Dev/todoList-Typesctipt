@@ -61,14 +61,14 @@ function TodoItem({ todo }: Props) {
       <div className={cx("todo-item")}>
         <CheckBox outline checked={complete} toggleSelect={toggleSelect} />
         <p className={cx("content")} onDoubleClick={() => setEditing(!editing)}>
-          {todo.task}
+          {todo.nameTask}
         </p>
         <button className={cx("btn-delete")} onClick={handleDeleteTodo}>
           <FontAwesomeIcon icon={faXmark}></FontAwesomeIcon>
         </button>
       </div>
       <input
-        defaultValue={todo.task}
+        defaultValue={todo.nameTask}
         ref={inputRef}
         type="text"
         className={cx("edit-todo")}

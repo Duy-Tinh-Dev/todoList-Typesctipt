@@ -1,5 +1,5 @@
 export default interface ITodo {
   id: string;
-  task: string;
+  nameTask: string;
   complete: boolean;
 }

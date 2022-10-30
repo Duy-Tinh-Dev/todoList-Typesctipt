@@ -13,13 +13,15 @@ const cx = classNames.bind(style);
 function Header() {
   const [valueInput, setValueInput] = useState<string>("");
   const dispatch = useDispatch();
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const contentTask = valueInput.trim();
+    if (!contentTask) {
+      return;
+    }
     const newTodo: ITodo = {
       id: uuidv4(),
-      task: contentTask,
+      nameTask: contentTask,
       complete: false,
     };
     dispatch(addTodo(newTodo));
@@ -28,6 +30,10 @@ function Header() {
 
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>): void => {
     const valueInput: string = event.target.value;
+    if (!valueInput.trim()) {
+      setValueInput("");
+      return;
+    }
     setValueInput(valueInput);
   };
 
