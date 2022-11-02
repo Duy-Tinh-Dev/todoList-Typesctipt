@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import style from "./index.module.scss";
 
 const cx = classNames.bind(style);
-type props = {
+type TCheckBoxProps = {
   outline?: boolean;
   className?: string;
   checked?: boolean;
@@ -15,7 +15,7 @@ function CheckBox({
   outline,
   checked = false,
   toggleSelect,
-}: props) {
+}: TCheckBoxProps) {
   const [checkbox, setCheckbox] = useState<boolean>(checked);
   useEffect(() => {
     setCheckbox(checked);

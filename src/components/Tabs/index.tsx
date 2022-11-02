@@ -6,10 +6,10 @@ import { changeStatus } from "../../redux/slices/filterSlice";
 import style from "./index.module.scss";
 
 const cx = classNames.bind(style);
-type Props = {
+type TTabsProps = {
   arrTabs: Array<string>;
 };
-function Tabs({ arrTabs }: Props) {
+function Tabs({ arrTabs }: TTabsProps) {
   const [type, setType] = useState<string>("All");
   const dispatch = useDispatch();
 

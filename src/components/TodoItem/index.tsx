@@ -14,10 +14,10 @@ import {
 import style from "./index.module.scss";
 
 const cx = classNames.bind(style);
-type Props = {
+type TTodoItemProps = {
   todo: ITodo;
 };
-function TodoItem({ todo }: Props) {
+function TodoItem({ todo }: TTodoItemProps) {
   const [editing, setEditing] = useState<boolean>(false);
   const dispatch = useDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
